@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  konta-db:
+    image: postgres:15-alpine
+    container_name: konta_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: konta_user
+      POSTGRES_PASSWORD: konta_password_secure_123 
+      POSTGRES_DB: konta_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+  liquibase:
+    image: liquibase/liquibase
+    depends_on:
+      - konta-db
+    environment:
+      INSTALL_POSTGRES: "true"
+    volumes:
+      - ./liquibase:/liquibase/changelog
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: konta_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@konta.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - konta-db
+
+volumes:
+  postgres_data:
