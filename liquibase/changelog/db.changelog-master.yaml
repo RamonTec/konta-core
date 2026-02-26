@@ -1,0 +1,3 @@
+databaseChangeLog:
+    - include:
+          file: changelog/changes/2025_11_29_create_db.sql
