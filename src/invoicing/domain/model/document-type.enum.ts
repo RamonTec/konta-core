@@ -1,0 +1,6 @@
+export enum DocumentType {
+    INVOICE = 'INVOICE',
+    DELIVERY_NOTE = 'DELIVERY_NOTE',
+    CREDIT_NOTE = 'CREDIT_NOTE',
+    DEBIT_NOTE = 'DEBIT_NOTE'
+}
